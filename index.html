@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Countdown</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #000000, #4a148c);
+            color: orange;
+            text-align: center;
+        }
+
+        .countdown {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+
+        .countdown span {
+            color: #ff5722;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: orange;
+        }
+
+        h1 span {
+            color: #ff5722;
+        }
+
+        .bats {
+            position: absolute;
+            animation: fly linear infinite;
+            top: 10%;
+            font-size: 2rem;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100vw);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <h1>Countdown to <span>Halloween</span></h1>
+        <p class="countdown" id="countdown">Loading...</p>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const year = now.getMonth() > 9 ? now.getFullYear() + 1 : now.getFullYear(); // October is month 9 (zero-indexed)
+            const halloween = new Date(year, 9, 31); // October 31 of the correct year
+            const diff = halloween - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                `<span>${days}</span> Days, <span>${hours}</span> Hours, <span>${minutes}</span> Minutes, <span>${seconds}</span> Seconds until Halloween!`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
